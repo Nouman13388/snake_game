@@ -14,43 +14,45 @@ canvas.height = 400;
 let boxSize = 20;
 
 let snake = [
-  { x: 10, y: 10 }
+  { x: 0, y: 0 }
 ];
 
 let moveX = 0;
 let moveY = 0;
 
 const updateSnake = () => {
-    console.log("Updating snake...");
+    // console.log("Updating snake...");
     let head = {
         x: snake[0].x + moveX,
         y: snake[0].y + moveY
     };
-    console.log(`New head position: { x: ${head.x}, y: ${head.y} }`);
+    // console.log(`New head position: { x: ${head.x}, y: ${head.y} }`);
 
     let maxX = canvas.width / boxSize;
     let maxY = canvas.height / boxSize;
     if (head.x < 0 || head.x >= maxX || head.y < 0 || head.y >= maxY) {
-        console.log("Snake hit the boundary. Game Over.");
+        // console.log("Snake hit the boundary. Game Over.");
         return false;
     }
 
     snake.unshift(head);
     snake.pop();
-    console.log(`Updated snake: ${JSON.stringify(snake)}`);
+    // console.log(`Updated snake: ${JSON.stringify(snake)}`);
     return true;
 }
 
 
+
 const drawGame = () => {
-  console.log("Drawing game...");
+//   console.log("Drawing game...");
   context.fillStyle = "black";
   context.fillRect(0, 0, canvas.width, canvas.height);
 
   context.fillStyle = "yellow";
   for (let i = 0; i < snake.length; i++) {
     let part = snake[i];
-    console.log(`Drawing part ${i}: { x: ${part.x}, y: ${part.y} }`);
+    console.log(snake[i])
+    // console.log(`Drawing part ${i}: { x: ${part.x}, y: ${part.y} }`);
     context.fillRect(
       part.x * boxSize,
       part.y * boxSize,
@@ -61,10 +63,10 @@ const drawGame = () => {
 }
 
 const gameLoop = () => {
-    console.log("Starting game loop...");
+    // console.log("Starting game loop...");
     if (!updateSnake()) {
         appDiv.innerHTML = `<h1>Game Over!</h1><p>Refresh to play again.</p>`;
-        console.log("Game Over! Refresh to play again.");
+        // console.log("Game Over! Refresh to play again.");
         return;
     }
     drawGame();
@@ -72,7 +74,7 @@ const gameLoop = () => {
 }
 
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", (event) => {
   console.log(`Key pressed: ${event.key}`);
   if (event.key === "ArrowUp" && moveY !== 1) {
     moveX = 0;
